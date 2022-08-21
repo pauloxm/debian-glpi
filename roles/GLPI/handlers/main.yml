@@ -1,0 +1,21 @@
+---
+# handlers file for GLPI
+- name: a2enconfGLPI
+  command: >
+    a2enconf glpi.conf
+
+- name: RestartServer
+  reboot:
+
+- name: SetOwner
+  file:
+    dest: "{{ glpi }}"
+    owner: www-data
+    group: www-data    
+    recurse: true 
+
+- name: FolderPermissions
+  command: find {{ glpi }} -type d ! -perm 0755 -exec chmod 0755 {} \;
+
+- name: FilesPermissions
+  command: find {{ glpi }} -type f ! -perm 0644 -exec chmod 0644 {} \;

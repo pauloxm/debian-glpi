@@ -1,0 +1,16 @@
+---
+# handlers file for Basic
+- name: addInHostsFiles
+  lineinfile:
+    path: /etc/hosts
+    line: "127.0.0.1 {{ hostname }}"
+
+- name: RestartServer
+  reboot:
+
+- name: "Atualização do repositorio do Debian"
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+  when: ansible_facts['distribution'] == "Debian"

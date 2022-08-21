@@ -1,0 +1,3 @@
+---
+# vars file for GLPI
+glpi: /var/www/html/glpi/

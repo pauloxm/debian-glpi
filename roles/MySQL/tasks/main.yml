@@ -1,0 +1,52 @@
+---
+# tasks file for MariaDB
+- name: "instalação do MariaDB"
+  apt:
+    name:
+    - mariadb-server
+    - python3-mysqldb
+    state: present
+  when: ansible_facts["os_family"] == "Debian"
+
+- name: "Start do MariaDB"
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+# Criando bancos de Dados
+- name: "Criando banco de dados do GLPI"
+  mysql_db:
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    name: "{{ db_glpi_name }}"
+    state: present
+  when: ansible_facts["os_family"] == "Debian"
+
+# Criando usuários para acesso ao novo banco de dados
+- name: "Criando usuário no banco de dados do GLPI"
+  mysql_user:
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    name: "{{ db_glpi_username }}"
+    password: "{{ db_glpi_password }}"
+    priv: "{{ db_glpi_name }}.*:ALL,GRANT"
+    state: present
+  when: ansible_facts["os_family"] == "Debian"
+
+# Removendo usuários anônimos do MariaDB
+- name: "Removendo usuários anônimos do MariaDB"
+  mysql_user:
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    name: ""
+    host_all: yes
+    state: absent
+  when: ansible_facts["os_family"] == "Debian"
+
+# Definindo senha do usuario root
+- name: Definindo senha do usuario root
+  mysql_user:
+    login_host: 'localhost'
+    login_user: 'root'
+    login_password: ''
+    name: 'root'
+    password: '{{ mysql_root_password }}'
+    state: present

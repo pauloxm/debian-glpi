@@ -1,0 +1,28 @@
+---
+# tasks file for Basic
+## Atividades relacionadas ao repositorio
+- name: "Substitui Arquivo sources.list"
+  template:
+    src: templates/sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+    backup: no
+  when: ansible_facts["os_family"] == "Debian"
+
+- name: "Instala pacotes essenciais"
+  apt:
+    name: 
+      - python3
+    state: present
+  when: ansible_facts["os_family"] == "Debian"
+
+## Definir Hostname
+- name: "Definir Hostname do computador"
+  hostname:
+    name: "{{ hostname }}"
+  notify: 
+    - addInHostsFiles
+    - RestartServer
+  when: ansible_facts["hostname"] != "{{ hostname }}"

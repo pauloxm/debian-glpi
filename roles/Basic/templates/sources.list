@@ -1,0 +1,8 @@
+deb http://ftp.br.debian.org/debian/ {{ ansible_facts['distribution_release'] }} main contrib
+deb-src http://ftp.br.debian.org/debian/ {{ ansible_facts['distribution_release'] }} main contrib
+
+deb http://ftp.br.debian.org/debian/ {{ ansible_facts['distribution_release'] }}-updates main
+deb-src http://ftp.br.debian.org/debian/ {{ ansible_facts['distribution_release'] }}-updates main
+
+deb http://security.debian.org/debian/ {{ ansible_facts['distribution_release'] }}-updates main
+deb-src http://security.debian.org/debian/ {{ ansible_facts['distribution_release'] }}-updates main

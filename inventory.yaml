@@ -1,0 +1,2 @@
+[lab]
+192.168.1.64 hostname=node-debian ansible_user=paulo ansible_password=pass1234 ansible_port=22

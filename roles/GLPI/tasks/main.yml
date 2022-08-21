@@ -1,0 +1,61 @@
+---
+# tasks file for GLPI
+- name: "Instala pacotes necessários para o GLPI"
+  apt:
+    name: 
+      - apache2
+      - libapache2-mod-php
+      - php-soap
+      - php-cas
+      - php
+      - php-apcu
+      - php-cli
+      - php-common
+      - php-curl
+      - php-gd
+      - php-imap
+      - php-ldap
+      - php-mysql
+      - php-xmlrpc
+      - php-xml
+      - php-mbstring
+      - php-bcmath
+      - php-intl
+      - php-zip
+      - php-bz2
+      - xz-utils
+      - bzip2
+      - unzip
+      - curl
+    state: present
+  when: ansible_facts["os_family"] == "Debian"
+  
+- name: "Copiar e habilitar arquivo de configuração glpi.conf"
+  template:
+    src: files/glpi.conf
+    dest: /etc/apache2/conf-available/glpi.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  when: ansible_facts["os_family"] == "Debian"
+  notify:
+    - a2enconfGLPI
+    - RestartServer
+
+- name: "Checa se pasta GLPI existe"
+  stat:
+    path: "{{ glpi }}"
+  register: register_name
+
+- name: Fazer download e extrair arquivo glpi.tgz
+  unarchive:
+    src: https://github.com/glpi-project/glpi/releases/download/10.0.2/glpi-10.0.2.tgz
+    dest: /var/www/html
+    remote_src: yes
+    creates: no
+  when: 
+    - not register_name.stat.exists
+  notify:
+    - SetOwner
+    - FolderPermissions
+    - FilesPermissions
