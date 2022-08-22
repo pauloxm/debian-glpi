@@ -26,3 +26,19 @@
     - addInHostsFiles
     - RestartServer
   when: ansible_facts["hostname"] != "{{ hostname }}"
+
+## Atividades relacionadas ao Firewall
+- name: "Instala UFW"
+  apt:
+    name:
+      - ufw
+    state: present
+  notify:
+    - "Habilitar acesso SSH"
+    - "Habilitar acesso HTTP"
+    - "Habilitar acesso HTTPS"
+    - "Habilitar acesso MariaDB localhost"
+    - "Regra input default - DROP"
+    - "Regra outgoing default - ACCEPT"
+    - "Habilita o UFW"
+  when: ansible_facts["os_family"] == "Debian"
