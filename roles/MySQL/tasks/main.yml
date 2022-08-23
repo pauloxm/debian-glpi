@@ -8,11 +8,19 @@
     state: present
   when: ansible_facts["os_family"] == "Debian"
 
+# Iniciar o serviço do MariaDB
 - name: "Start do MariaDB"
   service:
     name: mariadb
     state: started
     enabled: yes
+
+# Verifica se banco de dados já existe
+- name: "Verifica se banco de dados já existe"
+  shell: >
+    mysql -e "show databases" | fgrep {{ db_glpi_name }}
+  register: mysql_exist
+  ignore_errors: True
 
 # Criando bancos de Dados
 - name: "Criando banco de dados do GLPI"
@@ -20,7 +28,9 @@
     login_unix_socket: "/var/run/mysqld/mysqld.sock"
     name: "{{ db_glpi_name }}"
     state: present
-  when: ansible_facts["os_family"] == "Debian"
+  when: 
+    - ansible_facts["os_family"] == "Debian"
+    - not register_name.stat.exists
 
 # Criando usuários para acesso ao novo banco de dados
 - name: "Criando usuário no banco de dados do GLPI"
