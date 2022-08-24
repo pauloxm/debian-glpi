@@ -19,16 +19,26 @@ Não serão usadas variáveis nessa role.
 Handlers
 ------------
 
-addInHostsFiles  <br />
-RestartServer  <br />
-Atualização do repositorio do Debian  <br />
-Habilitar acesso SSH  <br />
-Habilitar acesso HTTP  <br />
-Habilitar acesso HTTPS  <br />
-Habilitar acesso MariaDB localhost  <br />
-Regra input default - DROP  <br />
-Regra outgoing default - ACCEPT  <br />
-Habilita o UFW  <br />
+addInHostsFiles
+
+RestartServer
+
+Atualização do repositorio do Debian
+
+Habilitar acesso SSH
+
+Habilitar acesso HTTP
+
+Habilitar acesso HTTPS
+
+Habilitar acesso MariaDB localhost
+
+Regra input default - DROP
+
+Regra outgoing default - ACCEPT
+
+Habilita o UFW
+
 
 
 Licença
