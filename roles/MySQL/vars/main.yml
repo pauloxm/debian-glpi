@@ -1,5 +1,6 @@
 ---
 # vars file for MySQL
+mysql_root_username: root
 mysql_root_password: 08428765
 db_glpi_name: glpi
 db_glpi_username: suporte
