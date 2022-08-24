@@ -30,6 +30,11 @@ Regra input default - DROP
 Regra outgoing default - ACCEPT  
 Habilita o UFW  
 
+Templates
+-------
+
+sources.list    
+
 Licença
 -------
 
