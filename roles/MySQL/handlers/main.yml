@@ -11,9 +11,9 @@
 - name: "Definindo senha do usuario root"
   mysql_user:
     login_host: "localhost"
-    login_user: "root"
+    login_user: "{{ mysql_root_username }}"
     login_password: ""
-    name: "root"
+    name: "{{ mysql_root_username }}"
     password: "{{ mysql_root_password }}"
     state: present
 
