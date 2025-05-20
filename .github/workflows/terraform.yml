@@ -35,8 +35,8 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -no-color
+        run: terraform plan -out plan.out
         continue-on-error: true
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply plan.out -auto-approve
