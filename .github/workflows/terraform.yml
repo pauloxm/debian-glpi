@@ -17,5 +17,26 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: comando
-        run: echo 'Teste Paulo Xavier'
+      - name: Configurar Ansible
+        uses: dawidd6/action-setup-python@v3
+        with:
+          python-version: '3.x'
+      - run: pip install ansible-core==2.10.8
+
+      - name: Configurar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.0
+
+      - name: Inicializar Terraform
+        run: terraform init
+
+      - name: Validar Terraform
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -no-color
+        continue-on-error: true
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
