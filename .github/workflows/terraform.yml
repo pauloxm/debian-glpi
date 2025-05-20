@@ -1,21 +1,21 @@
-name: pipeline-terraform-aws
+name: Terraform e Ansible na AWS
 
 on:
   push:
     branches:
-      - main
+      - main # Execute este workflow quando houver push na branch principal
   pull_request:
     branches:
-      - main
+      - main # Execute este workflow quando houver pull request para a branch principal
 
 jobs:
-    Terraform_Plan
+  plan_apply:
+    name: Terraform Plan e Apply & Ansible Provisioning
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Comando
-        run: echo "Teste Paulo Xavier"
-      
+      - name: comando
+        run: echo 'Teste Paulo Xavier'
