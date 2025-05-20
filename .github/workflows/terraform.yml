@@ -4,15 +4,12 @@ on:
   push:
     branches:
       - main
-  paths-ignore:
-    - 'README.md'
-    - 'certs/**'
   pull_request:
     branches:
       - main
 
 jobs:
-    name: Terraform Plan e Apply & Ansible Provisioning
+    Terraform_Plan
     runs-on: ubuntu-latest
 
     steps:
