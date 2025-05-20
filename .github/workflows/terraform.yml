@@ -17,11 +17,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Configurar Ansible
-        uses: dawidd6/action-setup-python@v3
-        with:
-          python-version: '3.x'
-      - run: pip install ansible-core==2.10.8
+#      - name: Configurar Ansible
+#        uses: dawidd6/action-setup-python@v3
+#        with:
+#          python-version: '3.x'
+#      - run: pip install ansible-core==2.10.8
 
       - name: Configurar Terraform
         uses: hashicorp/setup-terraform@v3
